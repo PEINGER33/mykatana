@@ -3,12 +3,19 @@ Liste des choses à faire et de l'avancer du projet "Mykatana"
 TP1: https://www-inf.telecom-sudparis.eu/COURS/CSC4101/tp-01/
 TP2: https://www-inf.telecom-sudparis.eu/COURS/CSC4101/tp-02/
 TP3: https://www-inf.telecom-sudparis.eu/COURS/CSC4101/tp-debut-projet/
+TP4: 
 Cahier des charges: https://www-inf.telecom-sudparis.eu/COURS/CSC4101/projet/cahier-charges-projet.html
 Guide de realisation du projet: https://www-inf.telecom-sudparis.eu/COURS/CSC4101/projet/index.html#orgf819bff
 
 Questions à poser:
 - ?
 
-Marque page :
-- 3.6
+Création class Trousseau (Inventaire)
+Création class Katana (Objet)
+Association OneToMany entre Trousseau et Katana
+Creation de la page web : affiche la liste des Trousseaux avec http://127.0.0.1:8000/trousseau
+Creation de la page web : affcihe un trousseau (choisit) avec http://127.0.0.1:8000/trousseau/1
+
+Marque page (à terminer):
+- 4.5
 
