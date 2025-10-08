@@ -36,24 +36,32 @@ class AppFixtures extends Fixture
         
     }
     
+    
     private function loadKatana(ObjectManager $manager)
-    {
+    { 
+        
+        // 1) Créer un seul trousseau
+        #$trousseau = $manager->getRepository(Trousseau::class)->findOneBy([]);
+        
         foreach ($this->getKatanaData() as [$description, $type, $longueur]) {
             $katana = new Katana();
             $katana->setDescription($description);
             $katana->setType($type);
             $katana->setLongueur($longueur);
+            #$katana->setTrousseau($trousseau);
+
+            
             $manager->persist($katana);
         }
         $manager->flush();
     }
-    
+ 
     private function getKatanaData()
     {
         // katana = [description, type, longueur];
-        yield ['Honjo Masamune','Tachi', 71];
-        yield ['Kusanagi-no-Tsurugi', 'Autre', 72];
-        yield ['Muramasa', 'Shinogi Zukuri ',72];
+        yield ['Honjo Masamune','Tachi', 71.0];
+        yield ['Kusanagi-no-Tsurugi', 'Autre', 72.0];
+        yield ['Muramasa', 'Shinogi Zukuri ',72.0];
         
         
     }

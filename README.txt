@@ -4,11 +4,18 @@ Liste des propriétés des entités du modèle :
 
 [Inventaire] = Trousseau 
 [Objet] = Katana
+[Galerie] = Katanakake
+[User]
 
-Trousseau (Nom propriété / Type / Contraintes):
+
+(Nom propriété / Type / Contraintes)
+
+Trousseau :
+	- id / int / notnull
 	- description / string / notnull
 	
 Katana:
+	- id / int / notnull
 	- description / string / notnull
 	- type / string / notnull
 	- longueur / float / Positive
