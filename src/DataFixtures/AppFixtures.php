@@ -34,6 +34,7 @@ class AppFixtures extends Fixture
         // trousseau = [description];
         yield ['Lot de katana 1'];
         yield ['Lot de katana 2'];
+        yield ['Lot de katana 3'];
         
     }
     
@@ -62,9 +63,12 @@ class AppFixtures extends Fixture
     {
         // katana = [description, type, longueur, trousseau_id];
         yield ['Honjo Masamune','Tachi', 71.0, 0];
-        yield ['Kusanagi-no-Tsurugi', 'Autre', 72.0, 0];
-        yield ['Muramasa', 'Shinogi Zukuri ',72.0, 1];
-        
-        
+        yield ['Kusanagi-no-Tsurugi', 'Ken', 72.0, 0];
+        yield ['Muramasa', 'Shinogi Zukuri ', 72.0, 1];
+        yield ['Mikazuki Munechika', 'Tachi', 80.0, 1];
+        yield ['Dōjigiri Yasutsuna', 'Tachi', 80.0, 1];
+        yield ['Ōdenta Mitsuyo', 'Tachi',  82.0, 2];
+        yield ['Juzumaru Tsunetsugu', 'Tachi', 81.0, 2];
+        yield ['Onimaru Kunitsuna', 'Tachi', 77.0, 2];
     }
 }

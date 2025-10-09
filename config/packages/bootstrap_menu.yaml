@@ -3,5 +3,5 @@ bootstrap_menu:
     main:
       items:
         todos:
-          label: 'Trousseau'
+          label: 'Trousseau Index'
           route: 'trousseau_index'

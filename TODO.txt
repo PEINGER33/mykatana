@@ -1,5 +1,3 @@
-Liste des choses à faire et de l'avancer du projet "Mykatana"
-
 TP1: https://www-inf.telecom-sudparis.eu/COURS/CSC4101/tp-01/
 TP2: https://www-inf.telecom-sudparis.eu/COURS/CSC4101/tp-02/
 TP3: https://www-inf.telecom-sudparis.eu/COURS/CSC4101/tp-debut-projet/
@@ -9,22 +7,25 @@ TP5: https://www-inf.telecom-sudparis.eu/COURS/CSC4101/tp-05/
 Cahier des charges: https://www-inf.telecom-sudparis.eu/COURS/CSC4101/projet/cahier-charges-projet.html
 Guide de realisation du projet: https://www-inf.telecom-sudparis.eu/COURS/CSC4101/projet/index.html#orgf819bff
 
-TP3:
-Création class Trousseau (Inventaire)
-Création class Katana (Objet)
-Association OneToMany entre Trousseau et Katana
+Liste des choses à faire et de l'avancer du projet "Mykatana"
 
-Creation de la page web : affiche la liste des Trousseaux avec http://127.0.0.1:8000/trousseau
-Creation de la page web : affcihe un trousseau (choisit) avec http://127.0.0.1:8000/trousseau/1
 
-Ajout d'un lien de consultation à partir de la liste des trousseaux
+- Création class Trousseau (Inventaire)
+- Création class Katana (Objet)
+- Association OneToMany entre Trousseau et Katana
 
-Ajout d'un gabarit Twig pour l'affichage d'un Trousseau dans le front office
-Ajout de l'affichage des katanas d'un inventaire dans le front-office
+- Creation de la page web : affiche la liste des Trousseaux avec http://127.0.0.1:8000/trousseau
+- Creation de la page web : affcihe un trousseau (choisit) avec http://127.0.0.1:8000/trousseau/1
 
-TP6:
-Intégration de Bootstrap dans les templates
-Intégration des menus pour Bootstrap
+- Ajout d'un lien de consultation à partir de la liste des trousseaux
+
+- Ajout d'un gabarit Twig pour l'affichage d'un Trousseau dans le front office
+- Ajout de l'affichage des katanas d'un inventaire dans le front-office
+
+- Intégration de Bootstrap dans les templates
+- Intégration des menus pour Bootstrap
+
+
 
 Marque page (à terminer): 09/10/2025
 - A jour

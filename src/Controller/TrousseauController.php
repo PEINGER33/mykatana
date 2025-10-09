@@ -13,13 +13,13 @@ final class TrousseauController extends AbstractController
     #[Route('/trousseau', name: 'trousseau_index', methods: ['GET'])]
     public function index(ManagerRegistry $doctrine): Response
     {
-        #$entityManager = $doctrine->getManager();
-        #$trousseaux = $entityManager->getRepository(Trousseau::class)->findAll();
+        $entityManager = $doctrine->getManager();
+        $trousseaux = $entityManager->getRepository(Trousseau::class)->findAll();
         
         // dump($todos);
         
         return $this->render('trousseau/index.html.twig',
-            ['controller_name' => "Trousseau"]);
+            ['trousseaux' => $trousseaux]);
     }
     
     /**
