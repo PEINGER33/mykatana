@@ -20,6 +20,7 @@ class AppFixtures extends Fixture
     
     private function loadTrousseau(ObjectManager $manager)
     {
+        
         foreach ($this->getTrousseauData() as [$description]) {
             $trousseau = new Trousseau();
             $trousseau->setDescription($description);
@@ -31,8 +32,8 @@ class AppFixtures extends Fixture
     private function getTrousseauData()
     {
         // trousseau = [description];
-        yield ['lot de katana 1'];
-        yield ['lot de katana 2'];
+        yield ['Lot de katana 1'];
+        yield ['Lot de katana 2'];
         
     }
     
@@ -40,15 +41,16 @@ class AppFixtures extends Fixture
     private function loadKatana(ObjectManager $manager)
     { 
         
-        // 1) Créer un seul trousseau
-        #$trousseau = $manager->getRepository(Trousseau::class)->findOneBy([]);
+        // Récupère les trousseaux créés
+        $trousseaux = $manager->getRepository(Trousseau::class)->findAll();
         
-        foreach ($this->getKatanaData() as [$description, $type, $longueur]) {
+        foreach ($this->getKatanaData() as [$description, $type, $longueur, $trousseau_id]) {
             $katana = new Katana();
             $katana->setDescription($description);
             $katana->setType($type);
             $katana->setLongueur($longueur);
-            #$katana->setTrousseau($trousseau);
+            
+            $katana->setTrousseau($trousseaux[$trousseau_id]);
 
             
             $manager->persist($katana);
@@ -58,10 +60,10 @@ class AppFixtures extends Fixture
  
     private function getKatanaData()
     {
-        // katana = [description, type, longueur];
-        yield ['Honjo Masamune','Tachi', 71.0];
-        yield ['Kusanagi-no-Tsurugi', 'Autre', 72.0];
-        yield ['Muramasa', 'Shinogi Zukuri ',72.0];
+        // katana = [description, type, longueur, trousseau_id];
+        yield ['Honjo Masamune','Tachi', 71.0, 0];
+        yield ['Kusanagi-no-Tsurugi', 'Autre', 72.0, 0];
+        yield ['Muramasa', 'Shinogi Zukuri ',72.0, 1];
         
         
     }
