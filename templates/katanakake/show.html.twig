@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Katanakake{% endblock %}
+
+{% block main %}
+    <h1>Katanakake</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ katanakake.id }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ katanakake.description }}</td>
+            </tr>
+            <tr>
+                <th>Publiée</th>
+                <td>{{ katanakake.publiee ? 'Yes' : 'No' }}</td>
+            </tr>
+            
+            {# Présentation des Katanas présent dans le Katanakake #}
+            <tr>
+    			<th>Katanas</th>
+    			<td>
+        			<ul>
+                      {% for katana in katanakake.katanas %}
+          				<li>
+                        {{ katana }}
+          				</li>
+                      {% endfor %}
+        			</ul>
+    			</td>
+			</tr>
+			
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_katanakake_index') }}">back to list</a>
+
+    <a href="{{ path('app_katanakake_edit', {'id': katanakake.id}) }}">edit</a>
+
+    {{ include('katanakake/_delete_form.html.twig') }}
+{% endblock %}

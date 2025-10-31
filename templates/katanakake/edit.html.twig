@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Katanakake{% endblock %}
+
+{% block main %}
+    <h1>Edit Katanakake</h1>
+
+    {{ include('katanakake/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_katanakake_index') }}">back to list</a>
+
+    {{ include('katanakake/_delete_form.html.twig') }}
+{% endblock %}

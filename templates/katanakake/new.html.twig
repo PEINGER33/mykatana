@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Katanakake{% endblock %}
+
+{% block main %}
+    <h1>Create new Katanakake</h1>
+
+    {{ include('katanakake/_form.html.twig') }}
+
+    <a href="{{ path('app_katanakake_index') }}">back to list</a>
+{% endblock %}

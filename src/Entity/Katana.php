@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\KatanaRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: KatanaRepository::class)]
@@ -25,6 +27,17 @@ class Katana
     #[ORM\ManyToOne(inversedBy: 'katanas')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Trousseau $trousseau = null;
+
+    /**
+     * @var Collection<int, Katanakake>
+     */
+    #[ORM\ManyToMany(targetEntity: Katanakake::class, mappedBy: 'katanas')]
+    private Collection $katanakakes;
+
+    public function __construct()
+    {
+        $this->katanakakes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -75,6 +88,33 @@ class Katana
     public function setTrousseau(?Trousseau $trousseau): static
     {
         $this->trousseau = $trousseau;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Katanakake>
+     */
+    public function getKatanakakes(): Collection
+    {
+        return $this->katanakakes;
+    }
+
+    public function addKatanakake(Katanakake $katanakake): static
+    {
+        if (!$this->katanakakes->contains($katanakake)) {
+            $this->katanakakes->add($katanakake);
+            $katanakake->addKatana($this);
+        }
+
+        return $this;
+    }
+
+    public function removeKatanakake(Katanakake $katanakake): static
+    {
+        if ($this->katanakakes->removeElement($katanakake)) {
+            $katanakake->removeKatana($this);
+        }
 
         return $this;
     }

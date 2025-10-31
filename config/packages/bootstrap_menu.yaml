@@ -4,4 +4,7 @@ bootstrap_menu:
       items:
         todos:
           label: 'Trousseau Index'
-          route: 'trousseau_index'
+          route: 'trousseau_index' 
+        katanakakes:
+          label: 'Katanakake Index'
+          route: 'app_katanakake_index'

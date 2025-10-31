@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\TrousseauRepository;
+use App\Repository\KatanakakeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: TrousseauRepository::class)]
-class Trousseau
+#[ORM\Entity(repositoryClass: KatanakakeRepository::class)]
+class Katanakake
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -18,14 +18,18 @@ class Trousseau
     #[ORM\Column(length: 255)]
     private ?string $description = null;
 
+    #[ORM\Column]
+    private ?bool $publiee = null;
+
     /**
      * @var Collection<int, Katana>
      */
-    #[ORM\OneToMany(targetEntity: Katana::class, mappedBy: 'trousseau', orphanRemoval: true)]
+    #[ORM\ManyToMany(targetEntity: Katana::class, inversedBy: 'katanakakes')]
     private Collection $katanas;
 
-    #[ORM\OneToOne(mappedBy: 'trousseau', cascade: ['persist', 'remove'])]
-    private ?Member $member = null;
+    #[ORM\ManyToOne(inversedBy: 'katanakakes')]
+    #[ORM\JoinColumn(nullable: true)]   # Attention étant donné que la relation a été faite trop tot elle géne le code donc "True" mais sinon "False"
+    private ?Member $createur = null;
 
     public function __construct()
     {
@@ -49,6 +53,18 @@ class Trousseau
         return $this;
     }
 
+    public function isPubliee(): ?bool
+    {
+        return $this->publiee;
+    }
+
+    public function setPubliee(bool $publiee): static
+    {
+        $this->publiee = $publiee;
+
+        return $this;
+    }
+
     /**
      * @return Collection<int, Katana>
      */
@@ -61,7 +77,6 @@ class Trousseau
     {
         if (!$this->katanas->contains($katana)) {
             $this->katanas->add($katana);
-            $katana->setTrousseau($this);
         }
 
         return $this;
@@ -69,34 +84,19 @@ class Trousseau
 
     public function removeKatana(Katana $katana): static
     {
-        if ($this->katanas->removeElement($katana)) {
-            // set the owning side to null (unless already changed)
-            if ($katana->getTrousseau() === $this) {
-                $katana->setTrousseau(null);
-            }
-        }
+        $this->katanas->removeElement($katana);
 
         return $this;
     }
 
-    public function getMember(): ?Member
+    public function getCreateur(): ?Member
     {
-        return $this->member;
+        return $this->createur;
     }
 
-    public function setMember(?Member $member): static
+    public function setCreateur(?Member $createur): static
     {
-        // unset the owning side of the relation if necessary
-        if ($member === null && $this->member !== null) {
-            $this->member->setTrousseau(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if ($member !== null && $member->getTrousseau() !== $this) {
-            $member->setTrousseau($this);
-        }
-
-        $this->member = $member;
+        $this->createur = $createur;
 
         return $this;
     }

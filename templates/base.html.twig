@@ -35,7 +35,36 @@
 
     {% block body %}
 
-      {# ... #}
+<div class="container body-container">
+
+    <main>
+
+      {# Ici la partie utile que les gabarits des pages vont surcharger #}
+      {% block main %}
+      <div class="row">
+        <div class="col-md-12">
+          <p>
+            <i>MAIN</i>
+          </p>
+        </div>
+      </div>
+      {% endblock %} {# main #}
+
+    </main>
+
+  </div> <!-- /.body-container -->
+
+	{# footer }
+
+  {% block footer %}
+  <footer class="text-center text-lg-start bg-light text-muted">
+    <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+      FOOTER
+    </div>
+  </footer>
+  {% endblock %} 
+  
+  { footer #}
 
     {% endblock %}{# body #}
 

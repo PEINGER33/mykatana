@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 {% block title %}Trousseau n°{{ trousseau.id }}{% endblock %}
 
-{% block body %}
+{% block main %}
     <h1>Trousseau</h1>
 
        {% dump trousseau %}
@@ -29,5 +29,5 @@
 
     <a href="{{ path('trousseau_index') }}">back to list</a>
 
-{% endblock %} {# body #} 
+{% endblock %} {# main #} 
 {# ... #} 

@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Katanakake index{% endblock %}
+
+{% block main %}
+    <h1>Katanakake index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Description</th>
+                <th>Publiée</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for katanakake in katanakakes %}
+            <tr>
+                <td>{{ katanakake.id }}</td>
+                <td>{{ katanakake.description }}</td>
+                <td>{{ katanakake.publiee ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('app_katanakake_show', {'id': katanakake.id}) }}">show</a>
+                    <a href="{{ path('app_katanakake_edit', {'id': katanakake.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_katanakake_new') }}">Create new</a>
+{% endblock %}

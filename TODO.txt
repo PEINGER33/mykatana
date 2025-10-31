@@ -10,23 +10,34 @@ Guide de realisation du projet: https://www-inf.telecom-sudparis.eu/COURS/CSC410
 Liste des choses à faire et de l'avancer du projet "Mykatana"
 
 
-- Création class Trousseau (Inventaire)
-- Création class Katana (Objet)
-- Association OneToMany entre Trousseau et Katana
+- Création class [Trousseau] (Inventaire)
+- Création class [Katana] (Objet)
+- Association OneToMany entre [Trousseau] et [Katana]
 
-- Creation de la page web : affiche la liste des Trousseaux avec http://127.0.0.1:8000/trousseau
+- Creation de la page web : affiche la liste des [Trousseaux] avec http://127.0.0.1:8000/trousseau
 - Creation de la page web : affcihe un trousseau (choisit) avec http://127.0.0.1:8000/trousseau/1
 
 - Ajout d'un lien de consultation à partir de la liste des trousseaux
 
-- Ajout d'un gabarit Twig pour l'affichage d'un Trousseau dans le front office
+- Ajout d'un gabarit Twig pour l'affichage d'un [Trousseau] dans le front office
 - Ajout de l'affichage des katanas d'un inventaire dans le front-office
 
 - Intégration de Bootstrap dans les templates
 - Intégration des menus pour Bootstrap
 
+- Ajout de l'entité [Member]
+- Association OneToOne entre [Member] et [Trousseau]
+8. Ajout du code de chargement des données test des [Member]
 
+9. Ajout de l'entité [Katanakake] au modèle de données
+* Fait : [créateur] pour enregistrer qui gère cette [galerie] : relation « Membre (1) — (0..n) [galerie] »
+* Fait : une association plus délicate « [galerie] (0..n=) — (0..n) [objet] » : ManyToMany, permettant à un membre d’afficher le même [objet] dans différentes [galeries].
+=> Mais pour l'instant cette partie est commenté dans le [Member] et [Katanakake]
 
-Marque page (à terminer): 09/10/2025
-- A jour
+10. Génération d’un nouveau contrôleur CRUD au front-office, pour [Katanakake]
+* Fait : Customisation de l'affichage avec Bootstrap (Barre d'outil + mise en forme formulaire)
+* A faire : Messages flash
+
+Marque page (à terminer): 30/10/2025
+- A faire : 10.3
 

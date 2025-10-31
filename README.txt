@@ -1,5 +1,7 @@
 TAS Ozgur
 
+Sujet : Application web de partage de ses katanas
+
 Lien du dépot GitHub sur mon compte personnel : https://github.com/PEINGER33/mykatana.git
 
 "Voir le diagramme du modèle fait sur : diagram.io" (https://app.diagrams.net/#G12dKkN0y7UBMRm4JmLsTvmdswY3GX1kor#%7B%22pageId%22%3A%22eWfJXFkcnHLeDeFjSnNW%22%7D)
@@ -22,6 +24,11 @@ Katana:
 	- description / string / notnull
 	- type / string / notnull
 	- longueur / float / Positive
+
+Katanakake :
+	- id / int / notnull
+	- description / string / notnull
+	- publiée / boolean / notnull
 
 
 REMARQUE IMPORTANTE :

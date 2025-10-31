@@ -2,10 +2,12 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Member;
 use App\Entity\Trousseau;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use App\Entity\Katana;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
 {
@@ -16,6 +18,7 @@ class AppFixtures extends Fixture
 
         $this->loadTrousseau($manager);
         $this->loadKatana($manager);
+        $this->loadMember($manager);
     }
     
     private function loadTrousseau(ObjectManager $manager)
@@ -70,5 +73,43 @@ class AppFixtures extends Fixture
         yield ['Ōdenta Mitsuyo', 'Tachi',  82.0, 2];
         yield ['Juzumaru Tsunetsugu', 'Tachi', 81.0, 2];
         yield ['Onimaru Kunitsuna', 'Tachi', 77.0, 2];
+    }
+    
+    # Partie relatif aux Member
+    
+    private UserPasswordHasherInterface $hasher;
+    
+    public function __construct(UserPasswordHasherInterface $hasher)
+    {
+        $this->hasher = $hasher;
+    }
+    
+    /**
+     * Generates initialization data for members :
+     *  [email, plain text password]
+     * @return \\Generator
+     */
+    private function membersGenerator()
+    {
+        yield ['olivier@localhost','123456'];
+        yield ['slash@localhost','123456'];
+    }
+    
+    //...
+    public function loadMember(ObjectManager $manager): void
+    {
+        foreach ($this->membersGenerator() as [$email, $plainPassword]) {
+            $user = new Member();
+            $password = $this->hasher->hashPassword($user, $plainPassword);
+            $user->setEmail($email);
+            $user->setPassword($password);
+            
+            // $roles = array();
+            // $roles[] = $role;
+            // $user->setRoles($roles);
+            
+            $manager->persist($user);
+        }
+        $manager->flush();
     }
 }

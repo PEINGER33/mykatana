@@ -2,7 +2,7 @@
 
 {% block title %}Katana n°{{ katana.id }}{% endblock %}
 
-{% block body %}
+{% block main %}
     <h1>Katana</h1>
 
        {% dump katana %}
@@ -26,6 +26,6 @@
 
     <a href="{{ path('trousseau_show', {'id': katana.trousseau.id}) }}">back to trousseau {{ katana.trousseau.id }}</a>
 
-{% endblock %} {# body #} 
+{% endblock %} {# main #} 
 {# ... #} 
 
