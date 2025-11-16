@@ -36,8 +36,14 @@ Liste des choses à faire et de l'avancer du projet "Mykatana"
 
 10. Génération d’un nouveau contrôleur CRUD au front-office, pour [Katanakake]
 * Fait : Customisation de l'affichage avec Bootstrap (Barre d'outil + mise en forme formulaire)
-* A faire : Messages flash
+* Fait : Messages flash lors de l'ajout de Katanakake
 
-Marque page (à terminer): 30/10/2025
-- A faire : 10.3
+11. État des lieux des contrôleurs
+
+12.Contextualisation de la consultation des katanas depuis les katanakakes publiques
+
+13. Ajout des données de tests dans les Fixtures
+
+Marque page (à terminer): 10/11/2025
+- A faire : 14
 

@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Katana{% endblock %}
+
+{% block body %}
+    <h1>Create new Katana</h1>
+
+    {{ include('katana/_form.html.twig') }}
+
+    <a href="{{ path('app_katana_index') }}">back to list</a>
+{% endblock %}

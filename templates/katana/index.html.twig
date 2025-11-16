@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Katana index{% endblock %}
+
+{% block body %}
+    <h1>Katana index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Description</th>
+                <th>Type</th>
+                <th>Longueur</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for katana in katanas %}
+            <tr>
+                <td>{{ katana.id }}</td>
+                <td>{{ katana.description }}</td>
+                <td>{{ katana.type }}</td>
+                <td>{{ katana.longueur }}</td>
+                <td>
+                    <a href="{{ path('app_katana_show', {'id': katana.id}) }}">show</a>
+                    <a href="{{ path('app_katana_edit', {'id': katana.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_katana_new') }}">Create new</a>
+{% endblock %}

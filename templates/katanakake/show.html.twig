@@ -26,9 +26,14 @@
     			<td>
         			<ul>
                       {% for katana in katanakake.katanas %}
-          				<li>
-                        {{ katana }}
-          				</li>
+          				 <li>
+     						<a href="{{ path( 'app_katanakake_katana_show',
+                                               {
+                         						'katanakake_id': katanakake.id,
+                         						'katana_id' : katana.id
+                                                }
+                                             ) }}">{{ katana }}</a>
+   						</li>
                       {% endfor %}
         			</ul>
     			</td>

@@ -2,28 +2,80 @@
 
 namespace App\Controller;
 
+use App\Entity\Katana;
+use App\Form\KatanaType;
+use App\Repository\KatanaRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use App\Entity\Katana;
-use Doctrine\Persistence\ManagerRegistry;
 
+#[Route('/katana')]
 final class KatanaController extends AbstractController
 {
-    #[Route('/katana/{id}', name: 'katana_show', requirements: ['id' => '\d+'], methods: ['GET'])]
-    public function show(ManagerRegistry $doctrine, $id): Response
+    #[Route(name: 'app_katana_index', methods: ['GET'])]
+    public function index(KatanaRepository $katanaRepository): Response
     {
-        $katanaRepo = $doctrine->getRepository(Katana::class);
-        $katana = $katanaRepo->find($id);
-        
-        if (!$katana) {
-            throw $this->createNotFoundException('The katana does not exist');
+        return $this->render('katana/index.html.twig', [
+            'katanas' => $katanaRepository->findAll(),
+        ]);
+    }
+
+    #[Route('/new', name: 'app_katana_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $katana = new Katana();
+        $form = $this->createForm(KatanaType::class, $katana);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($katana);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_katana_index', [], Response::HTTP_SEE_OTHER);
         }
-        
-        
-        {
-            return $this->render('katana/show.html.twig',
-                [ 'katana' => $katana ]);
+
+        return $this->render('katana/new.html.twig', [
+            'katana' => $katana,
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/{id}', name: 'app_katana_show', methods: ['GET'])]
+    public function show(Katana $katana): Response
+    {
+        return $this->render('katana/show.html.twig', [
+            'katana' => $katana,
+        ]);
+    }
+
+    #[Route('/{id}/edit', name: 'app_katana_edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, Katana $katana, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(KatanaType::class, $katana);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_katana_index', [], Response::HTTP_SEE_OTHER);
         }
+
+        return $this->render('katana/edit.html.twig', [
+            'katana' => $katana,
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/{id}', name: 'app_katana_delete', methods: ['POST'])]
+    public function delete(Request $request, Katana $katana, EntityManagerInterface $entityManager): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$katana->getId(), $request->getPayload()->getString('_token'))) {
+            $entityManager->remove($katana);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('app_katana_index', [], Response::HTTP_SEE_OTHER);
     }
 }
