@@ -40,12 +40,17 @@ Liste des choses à faire et de l'avancer du projet "Mykatana"
 
 11. État des lieux des contrôleurs
 
+PAS FAIT !!!!! 
 12.Contextualisation de la consultation des katanas depuis les katanakakes publiques
 
 13. Ajout des données de tests dans les Fixtures
 
 14. Contextualisation de l’accès aux données d’un membre, et restriction des opérations permises
 
+15. Contextualisation des opérations CRUD modifiant les [galeries]
+
+16. TODO Contextualisation de l’ajout d’un [objet] à une [galerie]
+
 Marque page (à terminer): 17/11/2025
-- A faire : 16
+- A faire : 17
 
