@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Member{% endblock %}
+
+{% block main %}
+    <h1>Member</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ member.id }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ member.email }}</td>
+            </tr>
+            <tr>
+                <th>Katanakakes</th>
+                <td>
+                	<ul>
+                        {%  for katanakake in member.katanakakes %}
+                        <li>
+                        <a href="{{ path('app_katanakake_show', {'id': katanakake.id}) }}"> {{ katanakake.description }} </a>
+                		</li>
+                        {% endfor %}
+                        <a href="{{ path('app_katanakake_new', {'id': member.id}) }}">Add new</a>
+                    </ul>
+                </td>    
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('trousseau_show', {'id' : member.trousseau.id}) }}"> mon trousseau </a>
+
+{% endblock %}

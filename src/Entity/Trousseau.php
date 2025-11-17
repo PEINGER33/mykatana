@@ -31,6 +31,11 @@ class Trousseau
     {
         $this->katanas = new ArrayCollection();
     }
+    
+    public function __toString(): string
+    {
+        return $this->getDescription();
+    }
 
     public function getId(): ?int
     {

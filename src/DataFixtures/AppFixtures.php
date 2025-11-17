@@ -183,7 +183,7 @@ class AppFixtures extends Fixture
     
     public function load(ObjectManager $manager): void
     {
-        // --- création des trousseaux
+        // création des trousseaux
         foreach (self::trousseauxDataGenerator() as [$description, $trousseauRef]) {
             $trousseau = new Trousseau();
             $trousseau->setDescription($description);
@@ -194,7 +194,7 @@ class AppFixtures extends Fixture
             $this->addReference($trousseauRef, $trousseau);
         }
         
-        // --- création des membres, liés à leur trousseau
+        //  création des membres, liés à leur trousseau
         foreach (self::membersDataGenerator() as [$email, $plainPassword, $trousseauRef, $memberRef]) {
             $member = new Member();
             $member->setEmail($email);
@@ -210,7 +210,7 @@ class AppFixtures extends Fixture
             
         }
         
-        // --- création des katanas, associés à leur trousseau
+        //  création des katanas, associés à leur trousseau
         foreach (self::katanasDataGenerator() as [$trousseauRef, $desc, $type, $longueur]) {
             $katana = new Katana();
             $katana->setDescription($desc);
@@ -224,7 +224,7 @@ class AppFixtures extends Fixture
             $manager->persist($katana);
         }
         
-        // --- création des Katanakake (galeries)
+        //  création des Katanakake (galeries)
         foreach (self::katanakakeDataGenerator() as [$description, $publiee, $memberRef]) {
             $katanakake = new Katanakake();
             $katanakake->setDescription($description);

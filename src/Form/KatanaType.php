@@ -28,6 +28,12 @@ class KatanaType extends AbstractType
                 'multiple' => true,
             ])
         ;
+            
+        $builder->add('trousseau', null, [
+                'disabled'   => true,
+            ])
+        ;
+            
     }
 
     public function configureOptions(OptionsResolver $resolver): void

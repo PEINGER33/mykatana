@@ -14,6 +14,9 @@ class KatanakakeType extends AbstractType
         $builder
             ->add('description')
             ->add('publiee')
+            ->add('createur', null, [
+                'disabled' => true
+            ])
         ;
     }
 

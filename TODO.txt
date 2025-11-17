@@ -44,6 +44,8 @@ Liste des choses à faire et de l'avancer du projet "Mykatana"
 
 13. Ajout des données de tests dans les Fixtures
 
-Marque page (à terminer): 10/11/2025
-- A faire : 14
+14. Contextualisation de l’accès aux données d’un membre, et restriction des opérations permises
+
+Marque page (à terminer): 17/11/2025
+- A faire : 16
 

@@ -46,6 +46,11 @@ class Member implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->katanakakes = new ArrayCollection();
     }
+    
+    public function __toString(): string
+    {
+        return $this->email ?? 'Member:'.$this->id;
+    }
 
     public function getId(): ?int
     {

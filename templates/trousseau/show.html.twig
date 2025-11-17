@@ -18,16 +18,19 @@
                   <ul>
                   {%  for katana in trousseau.katanas %}
                   <li>
-                  <a href="{{ path('katana_show', {'id': katana.id}) }}"> {{ katana.description }} </a>
+                  <a href="{{ path('app_katana_show', {'id': katana.id}) }}"> {{ katana.description }} </a>
                   </li>
                   {% endfor %} {# trousseau.katanas #}
+                  <a href="{{ path('app_katana_new', {'id': trousseau.id}) }}">Add new</a>
                   </ul> 
                   </td>
               </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('trousseau_index') }}">back to list</a>
+    {# <a href="{{ path('trousseau_index') }}">back to list</a> #}
+    <a href="{{ path('app_member_show', {'id': trousseau.member.id}) }}">back to member</a>
+    
 
 {% endblock %} {# main #} 
 {# ... #} 

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Katana;
 use App\Entity\Katanakake;
+use App\Entity\Member;
 use App\Form\KatanakakeType;
 use App\Repository\KatanakakeRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -20,14 +21,16 @@ final class KatanakakeController extends AbstractController
     public function index(KatanakakeRepository $katanakakeRepository): Response
     {
         return $this->render('katanakake/index.html.twig', [
-            'katanakakes' => $katanakakeRepository->findAll(),
+            'katanakakes' => $katanakakeRepository->findBy(['publiee' => true]),
         ]);
     }
 
-    #[Route('/new', name: 'app_katanakake_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/new/{id}', name: 'app_katanakake_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, EntityManagerInterface $entityManager, Member $member): Response
     {
         $katanakake = new Katanakake();
+        $katanakake->setCreateur($member);
+       
         $form = $this->createForm(KatanakakeType::class, $katanakake);
         $form->handleRequest($request);
 
@@ -39,7 +42,7 @@ final class KatanakakeController extends AbstractController
             $this->addFlash('message', 'bien ajouté');
             // $this->addFlash() is equivalent to $request->getSession()->getFlashBag()->add()
 
-            return $this->redirectToRoute('app_katanakake_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_member_show', ['id' => $member->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('katanakake/new.html.twig', [
@@ -65,7 +68,7 @@ final class KatanakakeController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_katanakake_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_member_show', ['id' => $katanakake->getCreateur()->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('katanakake/edit.html.twig', [
@@ -77,12 +80,14 @@ final class KatanakakeController extends AbstractController
     #[Route('/{id}', name: 'app_katanakake_delete', methods: ['POST'])]
     public function delete(Request $request, Katanakake $katanakake, EntityManagerInterface $entityManager): Response
     {
+        $memberId = $katanakake->getCreateur()->getId();
+        
         if ($this->isCsrfTokenValid('delete'.$katanakake->getId(), $request->getPayload()->getString('_token'))) {
             $entityManager->remove($katanakake);
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_katanakake_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_katanakake_index', ['id' => $memberId], Response::HTTP_SEE_OTHER);
     }
     
     #[Route('/{katanakake_id}/katana/{katana_id}', methods: ['GET'], name: 'app_katanakake_katana_show')]

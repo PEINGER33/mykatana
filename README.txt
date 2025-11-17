@@ -30,6 +30,13 @@ Katanakake :
 	- description / string / notnull
 	- publiée / boolean / notnull
 
+Relations :
+
+Member → Trousseau (1–1)
+
+Trousseau → Katana (1–N)
+
+Member → Katanakake (1–N)
 
 REMARQUE IMPORTANTE :
 - J'ai expérimenté sur Windows le projet et par moment le local host ne répond pas (délais de 30s dépasé). Je ne vois pas la cause de ce problème.

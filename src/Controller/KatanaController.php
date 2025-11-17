@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Katana;
+use App\Entity\Trousseau;
 use App\Form\KatanaType;
 use App\Repository\KatanaRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -22,10 +23,11 @@ final class KatanaController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_katana_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/new/{id}', name: 'app_katana_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, EntityManagerInterface $entityManager, Trousseau $trousseau): Response
     {
         $katana = new Katana();
+        $katana->setTrousseau($trousseau);
         $form = $this->createForm(KatanaType::class, $katana);
         $form->handleRequest($request);
 
@@ -33,7 +35,9 @@ final class KatanaController extends AbstractController
             $entityManager->persist($katana);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_katana_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('trousseau_show',
+                ['id' => $trousseau->getId()],
+                Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('katana/new.html.twig', [
@@ -59,7 +63,7 @@ final class KatanaController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_katana_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('trousseau_show', ['id' => $katana->getTrousseau()->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('katana/edit.html.twig', [
@@ -71,11 +75,14 @@ final class KatanaController extends AbstractController
     #[Route('/{id}', name: 'app_katana_delete', methods: ['POST'])]
     public function delete(Request $request, Katana $katana, EntityManagerInterface $entityManager): Response
     {
+        // On récupère l'id du trousseau avant de le supprimer
+        $trousseauId = $katana->getTrousseau()->getId();
+        
         if ($this->isCsrfTokenValid('delete'.$katana->getId(), $request->getPayload()->getString('_token'))) {
             $entityManager->remove($katana);
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_katana_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('trousseau_show', ['id' => $trousseauId], Response::HTTP_SEE_OTHER);
     }
 }
