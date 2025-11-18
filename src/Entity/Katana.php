@@ -6,8 +6,11 @@ use App\Repository\KatanaRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: KatanaRepository::class)]
+#[Vich\Uploadable]
 class Katana
 {
     #[ORM\Id]
@@ -27,6 +30,81 @@ class Katana
     #[ORM\ManyToOne(inversedBy: 'katanas')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Trousseau $trousseau = null;
+    
+    ////////////////////////////////////////
+    
+    #[Vich\UploadableField(mapping: 'katanas', fileNameProperty: 'imageName', size: 'imageSize')]
+    private ?File $imageFile = null;
+    
+    #[ORM\Column(nullable: true)]
+    private ?string $imageName = null;
+    
+    #[ORM\Column(nullable: true)]
+    private ?int $imageSize = null;
+    
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $updatedAt = null;
+    
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $content_type = null;
+    
+    public function setImageFile(?File $imageFile = null): void
+    {
+        $this->imageFile = $imageFile;
+        
+        if (null !== $imageFile) {
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+    }
+    
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+    
+    public function setImageName(?string $imageName): void
+    {
+        $this->imageName = $imageName;
+    }
+    
+    public function getImageName(): ?string
+    {
+        return $this->imageName;
+    }
+    
+    public function setImageSize(?int $imageSize): void
+    {
+        $this->imageSize = $imageSize;
+    }
+    
+    public function getImageSize(): ?int
+    {
+        return $this->imageSize;
+    }
+    
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+    
+    public function setUpdatedAt(?\DateTimeImmutable $updatedAt): void
+    {
+        $this->updatedAt = $updatedAt;
+    }
+    
+    public function getContentType(): ?string
+    {
+        return $this->content_type;
+    }
+    
+    public function setContentType(?string $content_type): static
+    {
+        $this->content_type = $content_type;
+        
+        return $this;
+    }
+    
+    //////////////////////////////////////////////////////////////
 
     /**
      * @var Collection<int, Katanakake>

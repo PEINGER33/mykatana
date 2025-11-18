@@ -164,10 +164,10 @@ class AppFixtures extends Fixture
      */
     private static function katanasDataGenerator()
     {
-        yield [self::OLIVIER_TROUSSEAU, 'Honjo Masamune', 'Tachi', 71.0];
-        yield [self::OLIVIER_TROUSSEAU, 'Kusanagi-no-Tsurugi', 'Ken', 72.0];
-        yield [self::SLASH_TROUSSEAU, 'Muramasa', 'Shinogi Zukuri', 72.0];
-        yield [self::SLASH_TROUSSEAU, 'Mikazuki Munechika', 'Tachi', 80.0];
+        yield [self::OLIVIER_TROUSSEAU, 'Honjo Masamune', 'Tachi', 71.0,'honjo.jpg'];
+        yield [self::OLIVIER_TROUSSEAU, 'Kusanagi-no-Tsurugi', 'Ken', 72.0,'kusanagi.jpg'];
+        yield [self::SLASH_TROUSSEAU, 'Muramasa', 'Shinogi Zukuri', 72.0,'muramasa.jpg'];
+        yield [self::SLASH_TROUSSEAU, 'Mikazuki Munechika', 'Tachi', 80.0,'mikazuki.jpg'];
     }
     
     /**
@@ -211,7 +211,7 @@ class AppFixtures extends Fixture
         }
         
         //  création des katanas, associés à leur trousseau
-        foreach (self::katanasDataGenerator() as [$trousseauRef, $desc, $type, $longueur]) {
+        foreach (self::katanasDataGenerator() as [$trousseauRef, $desc, $type, $longueur, $imageName]) {
             $katana = new Katana();
             $katana->setDescription($desc);
             $katana->setType($type);
@@ -220,6 +220,7 @@ class AppFixtures extends Fixture
             // récupère le trousseau via la référence
             $trousseau = $this->getReference($trousseauRef, Trousseau::class);
             $katana->setTrousseau($trousseau);
+            $katana->setImageName($imageName);
             
             $manager->persist($katana);
         }

@@ -5,10 +5,12 @@ namespace App\Form;
 use App\Entity\Katana;
 use App\Entity\Katanakake;
 use App\Entity\Trousseau;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class KatanaType extends AbstractType
 {
@@ -27,6 +29,9 @@ class KatanaType extends AbstractType
                 'choice_label' => 'id',
                 'multiple' => true,
             ])
+            
+            //->add('imageName', TextType::class,  ['disabled' => true])
+            ->add('imageFile', VichImageType::class, ['required' => false])
         ;
             
         $builder->add('trousseau', null, [

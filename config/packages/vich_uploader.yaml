@@ -1,0 +1,8 @@
+vich_uploader:
+    db_driver: orm
+
+    mappings:
+        katanas:
+            uri_prefix: /images/katanas
+            upload_destination: '%kernel.project_dir%/public/images/katanas'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer

@@ -32,6 +32,14 @@ final class KatanaController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            
+            // Change content-type according to image's
+            $imagefile = $katana->getImageFile();
+            if($imagefile) {
+                $mimetype = $imagefile->getMimeType();
+                $katana->setContentType($mimetype);
+            }
+            
             $entityManager->persist($katana);
             $entityManager->flush();
 
@@ -49,6 +57,7 @@ final class KatanaController extends AbstractController
     #[Route('/{id}', name: 'app_katana_show', methods: ['GET'])]
     public function show(Katana $katana): Response
     {
+        dump($katana);
         return $this->render('katana/show.html.twig', [
             'katana' => $katana,
         ]);
