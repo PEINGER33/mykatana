@@ -127,6 +127,15 @@ class AppFixtures extends Fixture
     private const SLASH_TROUSSEAU   = 'slash-trousseau';
     private const OLIVIER_MEMBER = 'member_olivier';
     private const SLASH_MEMBER   = 'member_slash';
+    private const OLIVIER_KATANAKAKE = 'katanakake_olivier';
+    private const SLASH_KATANAKAKE   = 'katanakake_slash';
+    
+    
+    private const KATANA_HONJO    = 'katana_honjo';
+    private const KATANA_KUSANAGI = 'katana_kusanagi';
+    private const KATANA_MURAMASA = 'katana_muramasa';
+    private const KATANA_MIKAZUKI = 'katana_mikazuki';
+    
     
     private UserPasswordHasherInterface $hasher;
     
@@ -164,10 +173,10 @@ class AppFixtures extends Fixture
      */
     private static function katanasDataGenerator()
     {
-        yield [self::OLIVIER_TROUSSEAU, 'Honjo Masamune', 'Tachi', 71.0,'honjo.jpg'];
-        yield [self::OLIVIER_TROUSSEAU, 'Kusanagi-no-Tsurugi', 'Ken', 72.0,'kusanagi.jpg'];
-        yield [self::SLASH_TROUSSEAU, 'Muramasa', 'Shinogi Zukuri', 72.0,'muramasa.jpg'];
-        yield [self::SLASH_TROUSSEAU, 'Mikazuki Munechika', 'Tachi', 80.0,'mikazuki.jpg'];
+        yield [self::OLIVIER_TROUSSEAU, 'Honjo Masamune', 'Tachi', 71.0,'honjo.jpg',  self::KATANA_HONJO];
+        yield [self::OLIVIER_TROUSSEAU, 'Kusanagi-no-Tsurugi', 'Ken', 72.0,'kusanagi.jpg', self::KATANA_KUSANAGI];
+        yield [self::SLASH_TROUSSEAU, 'Muramasa', 'Shinogi Zukuri', 72.0,'muramasa.jpg', self::KATANA_MURAMASA];
+        yield [self::SLASH_TROUSSEAU, 'Mikazuki Munechika', 'Tachi', 80.0,'mikazuki.jpg', self::KATANA_MIKAZUKI];
     }
     
     /**
@@ -177,8 +186,8 @@ class AppFixtures extends Fixture
      */
     private static function katanakakeDataGenerator()
     {
-        yield ["Collection d'Olivier", true, self::OLIVIER_MEMBER];
-        yield ["Les sabres légendaires de Slash", false, self::SLASH_MEMBER];
+        yield ["Collection d'Olivier", true, self::OLIVIER_MEMBER,  self::OLIVIER_KATANAKAKE,  [self::KATANA_HONJO, self::KATANA_KUSANAGI]];
+        yield ["Les sabres légendaires de Slash", false, self::SLASH_MEMBER, self::SLASH_KATANAKAKE, [self::KATANA_MURAMASA, self::KATANA_MIKAZUKI]];
     }
     
     public function load(ObjectManager $manager): void
@@ -211,7 +220,7 @@ class AppFixtures extends Fixture
         }
         
         //  création des katanas, associés à leur trousseau
-        foreach (self::katanasDataGenerator() as [$trousseauRef, $desc, $type, $longueur, $imageName]) {
+        foreach (self::katanasDataGenerator() as [$trousseauRef, $desc, $type, $longueur, $imageName, $katanaRef ]) {
             $katana = new Katana();
             $katana->setDescription($desc);
             $katana->setType($type);
@@ -223,10 +232,12 @@ class AppFixtures extends Fixture
             $katana->setImageName($imageName);
             
             $manager->persist($katana);
+            $this->addReference($katanaRef, $katana);
+            
         }
         
         //  création des Katanakake (galeries)
-        foreach (self::katanakakeDataGenerator() as [$description, $publiee, $memberRef]) {
+        foreach (self::katanakakeDataGenerator() as [$description, $publiee, $memberRef, $katanakakeRef, $katanaRefs]) {
             $katanakake = new Katanakake();
             $katanakake->setDescription($description);
             $katanakake->setPubliee($publiee);
@@ -235,8 +246,15 @@ class AppFixtures extends Fixture
             $createur = $this->getReference($memberRef, Member::class);
             $katanakake->setCreateur($createur);
             
+            foreach ($katanaRefs as $katanaRef) {
+                $katanakake->addKatana($this->getReference($katanaRef, Katana::class));
+            }
+            
             $manager->persist($katanakake);
+            
+            $this->addReference($katanakakeRef, $katanakake);
         }
+        
         
         $manager->flush();
     }

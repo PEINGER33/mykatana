@@ -25,16 +25,26 @@
     			<th>Katanas</th>
     			<td>
         			<ul>
-                      {% for katana in katanakake.katanas %}
+            {# {% for katana in katanakake.katanas %}
           				 <li>
-     						<a href="{{ path( 'app_katanakake_katana_show',
-                                               {
-                         						'katanakake_id': katanakake.id,
-                         						'katana_id' : katana.id
-                                                }
-                                             ) }}">{{ katana }}</a>
+     						<a href="{{ path( 'app_katanakake_katana_show',{'katanakake_id': katanakake.id,'katana_id' : katana.id}) }}">{{ katana }}</a>
    						</li>
-                      {% endfor %}
+                      {% endfor %}   #}
+                      
+               {% for katana in katanakake.katanas %}
+                <li style="margin-bottom: .5rem;">
+                    {% if katana.imageName %}
+                        <img
+                            src="{{ vich_uploader_asset(katana, 'imageFile') }}"
+                            alt="{{ katana.description }}"
+                            style="max-width: 100px; vertical-align: middle; margin-right: .5rem;"
+                        >
+                    {% endif %}
+                    <a href="{{ path('app_katana_show', {'id': katana.id}) }}">
+                        {{ katana.description }}
+                    </a>
+                </li>
+            {% endfor %}       
         			</ul>
     			</td>
 			</tr>

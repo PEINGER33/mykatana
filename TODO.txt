@@ -48,10 +48,10 @@ Liste des choses à faire et de l'avancer du projet "Mykatana"
 
 15. Contextualisation des opérations CRUD modifiant les [galeries]
 
-16. TODO Contextualisation de l’ajout d’un [objet] à une [galerie]
+16. Contextualisation de l’ajout d’un [objet] à une [galerie]
 
-A faire : Ajout de l'entité Paste
+17. Ajout de la gestion de la mise en ligne d’images
 
-Marque page (à terminer): 17/11/2025
-- A faire : 17
+Marque page (à terminer): 19/11/2025
+- A faire : 18.
 
