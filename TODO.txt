@@ -52,6 +52,8 @@ Liste des choses à faire et de l'avancer du projet "Mykatana"
 
 17. Ajout de la gestion de la mise en ligne d’images
 
+18. Ajout de l’authentification
+
 Marque page (à terminer): 19/11/2025
-- A faire : 18.
+- A faire : 20.
 

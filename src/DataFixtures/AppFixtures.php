@@ -9,8 +9,11 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use App\Entity\Katana;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
+use App\DataFixtures\MemberFixtures;
 
-class AppFixtures extends Fixture
+
+class AppFixtures extends Fixture implements DependentFixtureInterface
 {
     
     /* Version des Fixtures fonctionnelle avant  
@@ -125,8 +128,8 @@ class AppFixtures extends Fixture
     // defines reference names for instances of Trousseau
     private const OLIVIER_TROUSSEAU = 'olivier-trousseau';
     private const SLASH_TROUSSEAU   = 'slash-trousseau';
-    private const OLIVIER_MEMBER = 'member_olivier';
-    private const SLASH_MEMBER   = 'member_slash';
+    //private const OLIVIER_MEMBER = 'member_olivier';
+    //private const SLASH_MEMBER   = 'member_slash';
     private const OLIVIER_KATANAKAKE = 'katanakake_olivier';
     private const SLASH_KATANAKAKE   = 'katanakake_slash';
     
@@ -144,16 +147,18 @@ class AppFixtures extends Fixture
         $this->hasher = $hasher;
     }
     
-    /**
-     * Generates initialization data for members :
-     * [email, plain text password, trousseau reference]
-     * @return \Generator
-     */
-    private static function membersDataGenerator()
+    public function getDependencies(): array
     {
-        yield ['olivier@localhost', '123456', self::OLIVIER_TROUSSEAU, self::OLIVIER_MEMBER];
-        yield ['slash@localhost', '123456', self::SLASH_TROUSSEAU, self::SLASH_MEMBER];
+        return [
+            MemberFixtures::class,
+        ];
     }
+    
+    /* private static function membersDataGenerator()
+    {
+        yield ['olivier@localhost', '123456', 'ROLE_ADMIN', self::OLIVIER_TROUSSEAU, self::OLIVIER_MEMBER];
+        yield ['slash@localhost', '123456', 'ROLE_USER',  self::SLASH_TROUSSEAU, self::SLASH_MEMBER];
+    } */
     
     
     /**
@@ -186,8 +191,14 @@ class AppFixtures extends Fixture
      */
     private static function katanakakeDataGenerator()
     {
-        yield ["Collection d'Olivier", true, self::OLIVIER_MEMBER,  self::OLIVIER_KATANAKAKE,  [self::KATANA_HONJO, self::KATANA_KUSANAGI]];
-        yield ["Les sabres légendaires de Slash", false, self::SLASH_MEMBER, self::SLASH_KATANAKAKE, [self::KATANA_MURAMASA, self::KATANA_MIKAZUKI]];
+        yield ["Collection d'Olivier", true, MemberFixtures::OLIVIER_MEMBER,  self::OLIVIER_KATANAKAKE,  [self::KATANA_HONJO, self::KATANA_KUSANAGI]];
+        yield ["Les sabres légendaires de Slash", false, MemberFixtures::SLASH_MEMBER, self::SLASH_KATANAKAKE, [self::KATANA_MURAMASA, self::KATANA_MIKAZUKI]];
+    }
+    
+    private static function memberTrousseauLinks()
+    {
+        yield [MemberFixtures::OLIVIER_MEMBER, self::OLIVIER_TROUSSEAU];
+        yield [MemberFixtures::SLASH_MEMBER,   self::SLASH_TROUSSEAU];
     }
     
     public function load(ObjectManager $manager): void
@@ -204,10 +215,15 @@ class AppFixtures extends Fixture
         }
         
         //  création des membres, liés à leur trousseau
-        foreach (self::membersDataGenerator() as [$email, $plainPassword, $trousseauRef, $memberRef]) {
+        
+        /* foreach (self::membersDataGenerator() as [$email, $plainPassword, $role ,$trousseauRef, $memberRef]) {
             $member = new Member();
             $member->setEmail($email);
             $member->setPassword($this->hasher->hashPassword($member, $plainPassword));
+            
+            $roles = array();
+            $roles[] = $role;
+            $member->setRoles($roles);
             
             // récupère le trousseau correspondant (comme dans le code du prof)
             $trousseau = $this->getReference($trousseauRef, Trousseau::class);
@@ -217,7 +233,7 @@ class AppFixtures extends Fixture
             $this->addReference($memberRef, $member);
             $manager->flush();
             
-        }
+        } */
         
         //  création des katanas, associés à leur trousseau
         foreach (self::katanasDataGenerator() as [$trousseauRef, $desc, $type, $longueur, $imageName, $katanaRef ]) {
@@ -253,6 +269,17 @@ class AppFixtures extends Fixture
             $manager->persist($katanakake);
             
             $this->addReference($katanakakeRef, $katanakake);
+        }
+        
+        // Lier les membres à leurs trousseaux
+        foreach (self::memberTrousseauLinks() as [$memberRef, $trousseauRef]) {
+            /** @var Member $member */
+            $member = $this->getReference($memberRef, Member::class);
+            /** @var Trousseau $trousseau */
+            $trousseau = $this->getReference($trousseauRef, Trousseau::class);
+            
+            $member->setTrousseau($trousseau);
+            $manager->persist($member);
         }
         
         
