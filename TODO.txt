@@ -1,59 +1,82 @@
+TODO mis à jour le: 19/11/2025
+
 TP1: https://www-inf.telecom-sudparis.eu/COURS/CSC4101/tp-01/
 TP2: https://www-inf.telecom-sudparis.eu/COURS/CSC4101/tp-02/
 TP3: https://www-inf.telecom-sudparis.eu/COURS/CSC4101/tp-debut-projet/
 TP4: https://www-inf.telecom-sudparis.eu/COURS/CSC4101/tp-04/
 TP5: https://www-inf.telecom-sudparis.eu/COURS/CSC4101/tp-05/
 
+-------   Liste de l'avancée du projet "Mykatana" (Détaillé) 
+
+[x] 1. prise de connaissance du cahier des charges
 Cahier des charges: https://www-inf.telecom-sudparis.eu/COURS/CSC4101/projet/cahier-charges-projet.html
 Guide de realisation du projet: https://www-inf.telecom-sudparis.eu/COURS/CSC4101/projet/index.html#orgf819bff
 
-Liste des choses à faire et de l'avancer du projet "Mykatana"
+[x] 2. initialisation du projet Symfony
+
+[x] 3. gestion du code source avec Git
+
+[x] 4. ajout au modèle des données des entités liées [inventaire] et [objet] minimales
+
+- entité [inventaire]
+- entité [objet]
+- association 1-N entre [inventaire] et [objet]
+- propriétés non-essentielles des [objets] (optionnel)
+
+[x] 5. ajout de données de tests chargeables avec les fixtures
+
+- pour [inventaire]
+- pour [objet]
+
+[x] 6. création des pages du "front-office" de consultation des [inventaires]
+
+- consultation de la liste de tous les inventaires (dans un premier temps)
+- consultation d'une fiche d'[inventaire] à partir de la liste
+
+[x] 7. utilisation de gabarits pour les pages de consultation du front-office
+
+- consultation d'un [objet]
+- consultation de la liste des [objets] d'un [inventaire]
+- navigation d'un [inventaire] vers la consultation de ses [objets]
+
+[x] 8. 	intégration d'une mise en forme CSS avec Bootstrap dans les gabarits Twig
+
+[x] 9. ajout de l'entité membre et du lien membre - [inventaire]
+
+- ajout de membre au modèle des données
+- ajout de l'association 1-1 entre membre et son inventaire
+
+[x] 10. intégration de menus de navigation
+
+[x] 11. ajout de l'entité [galerie] au modèle des données et de l'association M-N avec [objet]
+
+[x] 12. ajout d'un contrôleur CRUD pour [galerie]
+
+[x] 13. ajout de fonctions CRUD pour [objet]
+
+[x] 14. ajout de la consultation des [objets] depuis les [galeries] publiques
+
+[x] 15. consultation de la liste des seuls inventaires d'un membre dans le front-office
+
+[x] 16. contextualisation de la création d'un [objet] en fonction de l'[inventaire]
+
+[x] 17. ajout de la gestion de la mise en ligne d'images pour des photos dans les [objet]
+
+[x] 18. ajout de l'authentification
+
+[x] 19. affichage des seules galeries publiques
+
+[x] 20. contextualisation de la création d'une [galerie] en fonction du membre
+
+[x] 21. contextualisation de l'ajout d'un [objet] à une [galerie]
+
+[parfois] 22. utilisation des messages flash pour les CRUDs
+
+[ ] 23. ajout d'une gestion de marque-pages/panier dans le front-office
+
+[ ] 24. protection de l'accès aux données à leurs seuls propriétaires
+
+[x] 25. contextualisation du chargement des données en fonction de l'utilisateur connecté
 
 
-- Création class [Trousseau] (Inventaire)
-- Création class [Katana] (Objet)
-- Association OneToMany entre [Trousseau] et [Katana]
-
-- Creation de la page web : affiche la liste des [Trousseaux] avec http://127.0.0.1:8000/trousseau
-- Creation de la page web : affcihe un trousseau (choisit) avec http://127.0.0.1:8000/trousseau/1
-
-- Ajout d'un lien de consultation à partir de la liste des trousseaux
-
-- Ajout d'un gabarit Twig pour l'affichage d'un [Trousseau] dans le front office
-- Ajout de l'affichage des katanas d'un inventaire dans le front-office
-
-- Intégration de Bootstrap dans les templates
-- Intégration des menus pour Bootstrap
-
-- Ajout de l'entité [Member]
-- Association OneToOne entre [Member] et [Trousseau]
-8. Ajout du code de chargement des données test des [Member]
-
-9. Ajout de l'entité [Katanakake] au modèle de données
-* Fait : [créateur] pour enregistrer qui gère cette [galerie] : relation « Membre (1) — (0..n) [galerie] »
-* Fait : une association plus délicate « [galerie] (0..n=) — (0..n) [objet] » : ManyToMany, permettant à un membre d’afficher le même [objet] dans différentes [galeries].
-=> Mais pour l'instant cette partie est commenté dans le [Member] et [Katanakake]
-
-10. Génération d’un nouveau contrôleur CRUD au front-office, pour [Katanakake]
-* Fait : Customisation de l'affichage avec Bootstrap (Barre d'outil + mise en forme formulaire)
-* Fait : Messages flash lors de l'ajout de Katanakake
-
-11. État des lieux des contrôleurs
-
-12.Contextualisation de la consultation des katanas depuis les katanakakes publiques
-
-13. Ajout des données de tests dans les Fixtures
-
-14. Contextualisation de l’accès aux données d’un membre, et restriction des opérations permises
-
-15. Contextualisation des opérations CRUD modifiant les [galeries]
-
-16. Contextualisation de l’ajout d’un [objet] à une [galerie]
-
-17. Ajout de la gestion de la mise en ligne d’images
-
-18. Ajout de l’authentification
-
-Marque page (à terminer): 19/11/2025
-- A faire : 20.
 
