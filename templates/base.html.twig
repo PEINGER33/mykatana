@@ -28,6 +28,12 @@
     						 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
         						  {{ render_bootstrap_menu('main') }}
                                   {% if app.user %}
+                                  {# Lien vers la fiche Member de l'utilisateur courant #}
+        							<li class="nav-item">
+           								 <a class="nav-link" href="{{ path('app_member_show', {'id': app.user.id}) }}">
+             								   Mon profil
+          								  </a>
+       								 </li>
               						 {{ render_bootstrap_menu('account') }}
          						 {% else %}
                                      {{ render_bootstrap_menu('anonymousaccount') }}

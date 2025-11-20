@@ -8,7 +8,12 @@
        {% dump katana %}
 
     <table class="table">
-        <tbody>
+        <tbody> 
+        	<tr>
+                <th>Id</th>
+                <td>{{ katana.id }}</td>
+            </tr>
+            
             <tr>
                 <th>Description</th>
                 <td>{{ katana.description }}</td>
@@ -21,6 +26,16 @@
                 <th>Longueur</th>
                 <td>{{ katana.longueur }}</td>
             </tr>
+            <tr>
+    			<th>Image</th>
+    			<td>
+                    {% if katana.imageName %}
+            			<img src="{{ vich_uploader_asset(katana, 'imageFile') }}" alt="Image du katana" style="max-width: 300px;">
+                    {% else %}
+            			<em>Aucune image</em>
+       				{% endif %}
+    			</td>
+			</tr>
         </tbody>
     </table>
 

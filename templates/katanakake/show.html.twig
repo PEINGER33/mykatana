@@ -53,7 +53,8 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_katanakake_index') }}">back to katanakake index</a>
+    {#<a href="{{ path('app_katanakake_index') }}">back to katanakake index</a>#}
+    <a href="{{ path('app_member_show', {'id': katanakake.createur.id}) }}"class="btn btn-secondary"> back to member</a>
 
     <a href="{{ path('app_katanakake_edit', {'id': katanakake.id}) }}">edit</a>
 

@@ -114,7 +114,7 @@ final class KatanakakeController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_katanakake_index', ['id' => $memberId], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_member_show', ['id' => $memberId], Response::HTTP_SEE_OTHER);
     }
     
     #[Route('/{katanakake_id}/katana/{katana_id}', methods: ['GET'], name: 'app_katanakake_katana_show')]

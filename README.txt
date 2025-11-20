@@ -94,3 +94,4 @@ REMARQUES IMPORTANTES :
 - J'ai expérimenté sur Windows le projet et par moment le local host ne répond pas (délais de 30s dépasé). Je ne vois pas la cause de ce problème.
 Donc parfois ça marche et parfois non. Je soupsonne mon ordinateur d'etre défaillant. Sur Linux je n'ai rencontré aucun problème.
 - J'ai par ailleurs remarqué que si je ne cache:clear pas alors le temps d'execution de mes requetes dépassent 30s et générent uneexceptions Symphony.
+- Par ailleur, tous les katanas n'ont pas d'image seul Honjo, Kusanagi, mikazuki, muramasa en ont (je ne voulais pas que le dossier soit trop volumineux)
