@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}MyKatana - Accueil{% endblock %}
+
+{% block main %}
+<div class="container mt-4">
+
+    <div class="p-4 mb-4 rounded-3 bg-light border">
+        <h1 class="display-5">MyKatana</h1>
+        <p class="lead">
+            Gérez vos katanas, organisez votre trousseau et exposez vos plus belles lames dans des galeries.
+        </p>
+        <div class="mt-3">
+            <a href="{{ path('trousseau_index') }}" class="btn btn-primary me-2">Mon trousseau</a>
+            <a href="{{ path('app_katanakake_index') }}" class="btn btn-outline-primary me-2">Voir les galeries</a>
+            <a href="{{ path('app_katana_index') }}" class="btn btn-outline-secondary">Tous mes katanas</a>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-md-4 mb-3">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Inventaire personnel</h5>
+                    <p class="card-text">
+                        Centralisez vos katanas dans un trousseau unique, organisé et toujours à jour.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Galeries MyKatana</h5>
+                    <p class="card-text">
+                        Créez des katanakakes publics ou privés pour mettre en valeur vos pièces favorites.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Images des lames</h5>
+                    <p class="card-text">
+                        Associez des photos à vos katanas pour visualiser vos collections en un coup d’œil.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="mb-3">Katanakakes publics</h2>
+
+    {% if katanakakes is not empty %}
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            {% for k in katanakakes %}
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ k.description }}</h5>
+                            <p class="card-text">
+                                Créée par : {{ k.createur.email }}
+                            </p>
+                            <a href="{{ path('app_katanakake_show', {'id': k.id}) }}" class="btn btn-sm btn-primary">
+                                Voir la galerie
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>Aucune galerie publique pour le moment.</p>
+    {% endif %}
+
+</div>
+{% endblock %}
+

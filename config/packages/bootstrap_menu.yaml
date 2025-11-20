@@ -2,12 +2,16 @@ bootstrap_menu:
   menus:
     main:
       items:
-        todos:
+        trousseau:
           label: 'Trousseau Index'
           route: 'trousseau_index' 
         katanakakes:
           label: 'Katanakake Index'
-          route: 'app_katanakake_index'		  
+          route: 'app_katanakake_index'
+
+        home:
+          label: 'Accueil'
+          route: 'app_home'
 
     anonymousaccount:
        items:

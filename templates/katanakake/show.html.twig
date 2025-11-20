@@ -40,9 +40,10 @@
                             style="max-width: 100px; vertical-align: middle; margin-right: .5rem;"
                         >
                     {% endif %}
-                    <a href="{{ path('app_katana_show', {'id': katana.id}) }}">
+                    {#}<a href="{{ path('app_katana_show', {'id': katana.id}) }}">
                         {{ katana.description }}
-                    </a>
+                    </a>#}
+                    <a href="{{ path( 'app_katanakake_katana_show',{'katanakake_id': katanakake.id,'katana_id' : katana.id}) }}">{{ katana }}</a>
                 </li>
             {% endfor %}       
         			</ul>
@@ -52,7 +53,7 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_katanakake_index') }}">back to list</a>
+    <a href="{{ path('app_katanakake_index') }}">back to katanakake index</a>
 
     <a href="{{ path('app_katanakake_edit', {'id': katanakake.id}) }}">edit</a>
 
