@@ -69,6 +69,8 @@ Guide de realisation du projet: https://www-inf.telecom-sudparis.eu/COURS/CSC410
 [x] 20. contextualisation de la création d'une [galerie] en fonction du membre
 
 [x] 21. contextualisation de l'ajout d'un [objet] à une [galerie]
+ 
+!! Attention le controle d'accès est non effectif donc tout le monde peut modifier les données meme un anonyme  !!
 
 [parfois] 22. utilisation des messages flash pour les CRUDs
 

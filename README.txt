@@ -65,7 +65,7 @@ Trousseau → Katana (1–N)
 Member → Katanakake (1–N)
 
 Guide d'utilisation de l'application :
-- page d'accueil symfony : http://127.0.0.1:8000/
+- page d'accueil : http://127.0.0.1:8000/
 - page de connexion : http://127.0.0.1:8000/login
 - index galerie : http://127.0.0.1:8000/katanakake
 - index inventaire : http://127.0.0.1:8000/trousseau
