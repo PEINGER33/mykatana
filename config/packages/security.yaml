@@ -21,13 +21,13 @@ security:
                 login_path: app_login
                 check_path: app_login
                 enable_csrf: true
-                default_target_path: trousseau_index
+                default_target_path: app_katanakake_index
 
 
             logout:
                 path: app_logout
                 # where to redirect after logout
-                target: trousseau_index
+                target: app_katanakake_index
 
     role_hierarchy:
         ROLE_ADMIN:       ROLE_USER

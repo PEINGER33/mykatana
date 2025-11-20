@@ -18,9 +18,26 @@ final class KatanaController extends AbstractController
     #[Route(name: 'app_katana_index', methods: ['GET'])]
     public function index(KatanaRepository $katanaRepository): Response
     {
-        return $this->render('katana/index.html.twig', [
+        /* return $this->render('katana/index.html.twig', [
             'katanas' => $katanaRepository->findAll(),
-        ]);
+        ]); */
+        
+        if (!$this->getUser()) {
+            // si anonyme : on se redirige vers le login
+            return $this->redirectToRoute('app_login');
+        }
+        
+        if ($this->isGranted('ROLE_ADMIN')) {
+            $katanas = $katanaRepository->findAll();
+        }
+        else {
+            $member = $this->getUser();
+            $katanas = $katanaRepository->findMemberKatanas($member);
+        }
+        
+        return $this->render('katana/index.html.twig', [
+            'katanas' => $katanas,]);
+        
     }
 
     #[Route('/new/{id}', name: 'app_katana_new', methods: ['GET', 'POST'])]

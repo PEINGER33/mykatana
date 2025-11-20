@@ -20,8 +20,35 @@ final class KatanakakeController extends AbstractController
     #[Route(name: 'app_katanakake_index', methods: ['GET'])]
     public function index(KatanakakeRepository $katanakakeRepository): Response
     {
-        return $this->render('katanakake/index.html.twig', [
+        /* return $this->render('katanakake/index.html.twig', [
             'katanakakes' => $katanakakeRepository->findBy(['publiee' => true]),
+        ]); */
+        
+        // galeries visibles par tout le monde
+        $publicKatanakakes = $katanakakeRepository->findBy(['publiee' => true]);
+        
+        $privateKatanakakes = [];
+        
+        $member = $this->getUser();
+        
+        if ($member && !$this->isGranted('ROLE_ADMIN')) {
+            // galeries privées du membre connecté
+            $privateKatanakakes = $katanakakeRepository->findBy([
+                'publiee'  => false,
+                'createur' => $member,
+            ]);
+        }
+        
+        if ($this->isGranted('ROLE_ADMIN')) {
+            // admin : tout
+            $katanakakes = $katanakakeRepository->findAll();
+        } else {
+            // user normal publiques + privées du membre
+            $katanakakes = array_merge($publicKatanakakes, $privateKatanakakes);
+        }
+        
+        return $this->render('katanakake/index.html.twig', [
+            'katanakakes' => $katanakakes,
         ]);
     }
 
@@ -30,7 +57,7 @@ final class KatanakakeController extends AbstractController
     {
         $katanakake = new Katanakake();
         $katanakake->setCreateur($member);
-       
+      
         $form = $this->createForm(KatanakakeType::class, $katanakake);
         $form->handleRequest($request);
 

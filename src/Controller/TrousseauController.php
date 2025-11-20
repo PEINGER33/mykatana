@@ -14,9 +14,22 @@ final class TrousseauController extends AbstractController
     public function index(ManagerRegistry $doctrine): Response
     {
         $entityManager = $doctrine->getManager();
-        $trousseaux = $entityManager->getRepository(Trousseau::class)->findAll();
+        $trousseauRepository = $entityManager->getRepository(Trousseau::class);
         
-        // dump($todos);
+        
+        if (!$this->getUser()) {
+            // si anonyme : on se redirige vers le login
+            return $this->redirectToRoute('app_login');
+        }
+        
+        if ($this->isGranted('ROLE_ADMIN')) {
+            $trousseaux = $trousseauRepository->findAll();
+        }
+        else {
+            $member = $this->getUser();
+            // $trousseaux doit etre un tableau pas un objet
+            $trousseaux = [$member->getTrousseau()];
+        }
         
         return $this->render('trousseau/index.html.twig',
             ['trousseaux' => $trousseaux]);
