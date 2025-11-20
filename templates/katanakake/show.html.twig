@@ -3,60 +3,61 @@
 {% block title %}Katanakake{% endblock %}
 
 {% block main %}
-    <h1>Katanakake</h1>
+    <h1 class="mb-4">Katanakake</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ katanakake.id }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ katanakake.description }}</td>
-            </tr>
-            <tr>
-                <th>Publiée</th>
-                <td>{{ katanakake.publiee ? 'Yes' : 'No' }}</td>
-            </tr>
-            
-            {# Présentation des Katanas présent dans le Katanakake #}
-            <tr>
-    			<th>Katanas</th>
-    			<td>
-        			<ul>
-            {# {% for katana in katanakake.katanas %}
-          				 <li>
-     						<a href="{{ path( 'app_katanakake_katana_show',{'katanakake_id': katanakake.id,'katana_id' : katana.id}) }}">{{ katana }}</a>
-   						</li>
-                      {% endfor %}   #}
-                      
-               {% for katana in katanakake.katanas %}
-                <li style="margin-bottom: .5rem;">
+    {# Informations de la galerie #}
+    <div class="card mb-4">
+        <div class="card-body">
+            <p><strong>Id :</strong> {{ katanakake.id }}</p>
+            <p><strong>Description :</strong> {{ katanakake.description }}</p>
+            <p><strong>Publiée :</strong> {{ katanakake.publiee ? 'Oui' : 'Non' }}</p>
+        </div>
+    </div>
+
+    {# Katanas affichés dans la galerie  #}
+    <h3 class="mb-3">Katanas</h3>
+
+    <div class="row">
+        {% for katana in katanakake.katanas %}
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm">
                     {% if katana.imageName %}
                         <img
                             src="{{ vich_uploader_asset(katana, 'imageFile') }}"
+                            class="card-img-top"
                             alt="{{ katana.description }}"
-                            style="max-width: 100px; vertical-align: middle; margin-right: .5rem;"
+                            style="height:180px; object-fit:cover;"
                         >
                     {% endif %}
-                    {#}<a href="{{ path('app_katana_show', {'id': katana.id}) }}">
-                        {{ katana.description }}
-                    </a>#}
-                    <a href="{{ path( 'app_katanakake_katana_show',{'katanakake_id': katanakake.id,'katana_id' : katana.id}) }}">{{ katana }}</a>
-                </li>
-            {% endfor %}       
-        			</ul>
-    			</td>
-			</tr>
-			
-        </tbody>
-    </table>
 
-    {#<a href="{{ path('app_katanakake_index') }}">back to katanakake index</a>#}
-    <a href="{{ path('app_member_show', {'id': katanakake.createur.id}) }}"class="btn btn-secondary"> back to member</a>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ katana.description }}</h5>
 
-    <a href="{{ path('app_katanakake_edit', {'id': katanakake.id}) }}">edit</a>
+                        <a href="{{ path('app_katanakake_katana_show', {
+                            'katanakake_id': katanakake.id,
+                            'katana_id': katana.id
+                        }) }}" class="btn btn-primary btn-sm">
+                            Voir le katana
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
 
-    {{ include('katanakake/_delete_form.html.twig') }}
+    {# Actions  #}
+    <div class="mt-4 d-flex gap-3">
+        <a href="{{ path('app_member_show', {'id': katanakake.createur.id}) }}"
+           class="btn btn-secondary">
+            Retour au membre
+        </a>
+
+        <a href="{{ path('app_katanakake_edit', {'id': katanakake.id}) }}"
+           class="btn btn-warning">
+            Modifier
+        </a>
+
+        {{ include('katanakake/_delete_form.html.twig') }}
+    </div>
+
 {% endblock %}

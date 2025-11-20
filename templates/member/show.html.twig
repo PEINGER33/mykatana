@@ -3,34 +3,54 @@
 {% block title %}Member{% endblock %}
 
 {% block main %}
-    <h1>Member</h1>
+    <h1 class="mb-4">Fiche du membre</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ member.id }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ member.email }}</td>
-            </tr>
-            <tr>
-                <th>Katanakakes</th>
-                <td>
-                	<ul>
-                        {%  for katanakake in member.katanakakes %}
-                        <li>
-                        <a href="{{ path('app_katanakake_show', {'id': katanakake.id}) }}"> {{ katanakake.description }} </a>
-                		</li>
-                        {% endfor %}
-                        <a href="{{ path('app_katanakake_new', {'id': member.id}) }}">Add new</a>
-                    </ul>
-                </td>    
-            </tr>
-        </tbody>
-    </table>
+    {# Infos du membre  #}
+    <div class="card mb-4">
+        <div class="card-body">
+            <p class="mb-1"><strong>ID :</strong> {{ member.id }}</p>
+            <p class="mb-1"><strong>Email :</strong> {{ member.email }}</p>
+        </div>
+    </div>
 
-    <a href="{{ path('trousseau_show', {'id' : member.trousseau.id}) }}"> Mon trousseau </a>
+    {# Liste des katanakakes du membre  #}
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3 class="mb-0">Mes Katanakakes</h3>
+        <a href="{{ path('app_katanakake_new', {'id': member.id}) }}"
+           class="btn btn-primary btn-sm">
+            Ajouter une galerie
+        </a>
+    </div>
 
+    {% if member.katanakakes is not empty %}
+        <div class="row">
+            {% for katanakake in member.katanakakes %}
+                <div class="col-md-4 mb-3">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ katanakake.description }}</h5>
+                            <p class="card-text mb-2">
+                                <strong>Publiée :</strong>
+                                {{ katanakake.publiee ? 'Oui' : 'Non' }}
+                            </p>
+                            <a href="{{ path('app_katanakake_show', {'id': katanakake.id}) }}"
+                               class="btn btn-outline-primary btn-sm">
+                                Voir la galerie
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>Aucune galerie pour l’instant.</p>
+    {% endif %}
+
+    {#  Lien vers le trousseau du membre #}
+    <div class="mt-4">
+        <a href="{{ path('trousseau_show', {'id' : member.trousseau.id}) }}"
+           class="btn btn-secondary">
+            Mon trousseau
+        </a>
+    </div>
 {% endblock %}
