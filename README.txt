@@ -90,6 +90,13 @@ Utilisateurs Tests disponible :
 1 : olivier@localhost / 123456 /ROLE_USER
 2 : slash@localhost / 123456 / ROLE_ADMIN
 
+Explication des Fixtures :
+Chaque utilisateur a un trousseau (Trousseau Olivier : "Lot de katana 1" / Trousseau Slash : "Lot de katana 2")
+Chaque trousseau contient initialement 2 katanas tel que ( Olivier : Honjo et Kusanagi / Slash : Muramasa et Mikazuki )
+Olivier possède une galerie publique appelé "Colelction d'Olivier" qui contient ses 2 katanas.
+Slash possède une galerie privée appelé "Les sabres légendaires de Slash" qui contient ses 2 katanas.
+
+
 REMARQUES IMPORTANTES :
 - J'ai expérimenté sur Windows le projet et par moment le local host ne répond pas (délais de 30s dépasé). Je ne vois pas la cause de ce problème.
 Donc parfois ça marche et parfois non. Je soupsonne mon ordinateur d'etre défaillant. Sur Linux je n'ai rencontré aucun problème.

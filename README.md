@@ -1,130 +1,142 @@
-MyKatana — Projet Symfony
-Auteur : TAS Ozgur
+# MyKatana par TAS Ozgur
 
-====================================================
-                    Thème du projet
-====================================================
+## Thème
 
-MyKatana est une application web Symfony développée dans le cadre du module CSC4101.  
-Elle permet aux membres de :
+MyKatana est un projet d'application web Symfony réalisé dans le cadre du module CSC4101.  
+Il s'agit d'une plateforme permettant à des membres de gérer :
 
-- Gérer leur inventaire personnel de katanas (Trousseau)
-- Gérer leurs katanas
-- Créer des galeries publiques ou privées (Katanakake)
-- Consulter les galeries publiques des autres membres
-- Ajouter des images à leurs katanas
-- S’authentifier et naviguer dans une interface contextualisée
+- Leur inventaire personnel de katanas (Trousseau)
+- Leurs katanas eux-mêmes
+- Leurs galeries publiques ou privées (Katanakake)
+- La consultation des galeries publiques des autres membres
+- L’ajout d’images à leurs katanas
 
-L’application inclut :
-- Un système d'authentification complet  
-- Un contrôle d’accès basé sur les rôles  
-- Une contextualisation des données selon l’utilisateur  
-- La gestion d’images (VichUploader)  
-- Un modèle de données relationnel complet  
+L’application inclut également :
 
-====================================================
-                    Dépôt GitHub
-====================================================
+- Un système complet d’authentification
+- Un contrôle d’accès basé sur les rôles (USER / ADMIN)
+- Une contextualisation des données : chaque membre ne voit que ses propres données (sauf les galeries publiques)
 
+## Dépôt GitHub
+
+Lien du dépôt :  
 https://github.com/PEINGER33/mykatana.git
 
-====================================================
-             Correspondance des entités
-====================================================
+---
 
-Inventaire  → Trousseau  
-Objet       → Katana  
-Galerie     → Katanakake  
-User        → Member  
+## Modèle conceptuel (contextualisation des entités)
+
+Correspondances du sujet avec les entités :
+
+- [Inventaire] = Trousseau
+- [Objet] = Katana
+- [Galerie] = Katanakake
+- [User]   = Member
 
 Diagramme du modèle :  
-https://app.diagrams.net/#G12dKkN0y7UBMRm4JmLsTvmdswY3GX1kor
+https://app.diagrams.net/#G12dKkN0y7UBMRm4JmLsTvmdswY3GX1kor#%7B%22pageId%22%3A%22eWfJXFkcnHLeDeFjSnNW%22%7D
 
-====================================================
-                    Modèle de données
-====================================================
+### Propriétés des entités
 
-Trousseau :
-- id (int, notnull)
-- description (string, notnull)
-- katanas (Collection, OneToMany)
+#### Trousseau
+- id / int / notnull  
+- description / string / notnull  
+- katanas / Collection / OneToMany  
 
-Katana :
-- id (int, notnull)
-- description (string, notnull)
-- type (string, notnull)
-- longueur (float, positive)
-- imageName (string, nullable)
-- imageFile (file, upload)
-- contentType (string, nullable)
-- trousseau (ManyToOne)
+#### Katana
+- id / int / notnull  
+- description / string / notnull  
+- type / string / notnull  
+- longueur / float / Positive  
+- imageName / string / nullable  
+- imageFile / fichier  
+- contentType / string / nullable  
+- trousseau / Trousseau / ManyToOne  
 
-Katanakake :
-- id (int, notnull)
-- description (string, notnull)
-- publiee (bool, notnull)
-- createur (ManyToOne)
-- katanas (ManyToMany)
+#### Katanakake
+- id / int / notnull  
+- description / string / notnull  
+- publiée / boolean / notnull  
+- createur / Member / ManyToOne  
+- katanas / Collection / ManyToMany  
 
-Member :
-- id (int, notnull)
-- email (string, unique)
-- roles (array)
-- password (string)
-- trousseau (OneToOne)
-- katanakakes (OneToMany)
+#### Member
+- id / int / notnull  
+- email / string / notnull  
+- roles / array / nullable  
+- password / string / notnull  
+- trousseau / Trousseau / OneToOne  
+- katanakakes / Collection / OneToMany  
 
-Relations principales :
-- Member → Trousseau (1–1)
-- Trousseau → Katana (1–N)
-- Member → Katanakake (1–N)
-- Katanakake ↔ Katana (N–N)
+### Relations résumées
 
-====================================================
-                  Guide d’utilisation
-====================================================
+Member → Trousseau : 1–1  
+Trousseau → Katana : 1–N  
+Member → Katanakake : 1–N  
 
-Pages principales :
-- Page d'accueil Symfony : http://127.0.0.1:8000/
-- Connexion           : http://127.0.0.1:8000/login
-- Galeries            : http://127.0.0.1:8000/katanakake
-- Inventaire          : http://127.0.0.1:8000/trousseau
-- Katanas             : http://127.0.0.1:8000/katana
+---
 
-Certaines pages nécessitent une authentification.
+## Guide d'utilisation
 
-====================================================
-               Rôles et restrictions
-====================================================
+- Accueil : http://127.0.0.1:8000/
+- Connexion : http://127.0.0.1:8000/login
+- Index des galeries : http://127.0.0.1:8000/katanakake
+- Index des inventaires : http://127.0.0.1:8000/trousseau
+- Index des katanas : http://127.0.0.1:8000/katana
+- Index des membres : http://127.0.0.1:8000/member
 
-ROLE_ADMIN :
-- Accès à toutes les données
-- Peut consulter toutes les galeries, publiques et privées
+Certaines pages nécessitent une connexion.
 
-ROLE_USER :
-- Accède uniquement à son trousseau
-- À ses propres katanas
-- À ses propres galeries
+### Utilisateurs disponibles pour les tests
 
-Utilisateur anonyme :
-- Peut consulter uniquement les galeries publiques
+| Email              | Mot de passe | Rôle        |
+|-------------------|--------------|-------------|
+| olivier@localhost | 123456       | ROLE_USER   |
+| slash@localhost   | 123456       | ROLE_ADMIN  |
 
-====================================================
-            Comptes de test disponibles
-====================================================
+### Comportement selon le rôle
 
-1) olivier@localhost / 123456 / ROLE_USER  
-2) slash@localhost   / 123456 / ROLE_ADMIN  
+- **ADMIN** : accès complet à toutes les données  
+- **USER** : accès uniquement à son trousseau, ses katanas et ses galeries  
+- **Anonyme** : accès uniquement aux galeries publiques  
 
-====================================================
-                   Remarques importantes
-====================================================
+---
 
-- Sous Windows, le serveur Symfony répond parfois avec un délai dépassé (30s).  
-  Fonctionnement stable sous Linux.
-- Sans exécuter `symfony console cache:clear`, certaines requêtes dépassent 30 secondes  
-  et génèrent une exception Symfony.
+## Explication des Fixtures
 
-====================================================
+Les Fixtures créent automatiquement une base cohérente pour tester l’application.
 
-Fin du fichier README
+### Membres et trousseaux
+
+Chaque membre possède un trousseau :
+
+- Trousseau d’Olivier : « Lot de katana 1 »
+- Trousseau de Slash : « Lot de katana 2 »
+
+### Katanas
+
+Chaque trousseau contient deux katanas :
+
+- **Olivier** : Honjo Masamune, Kusanagi-no-Tsurugi  
+- **Slash** : Muramasa, Mikazuki Munechika  
+
+### Galeries
+
+Chaque membre a une galerie :
+
+- Galerie d’Olivier : « Collection d’Olivier » (publique) — contient ses deux katanas  
+- Galerie de Slash : « Les sabres légendaires de Slash » (privée) — contient ses deux katanas  
+
+### Images
+
+Seuls quatre katanas disposent d’une image (pour limiter la taille du projet) :  
+Honjo, Kusanagi, Mikazuki, Muramasa.
+
+---
+
+## Remarques importantes
+
+- Sur Windows, le serveur local Symfony peut parfois dépasser le délai d’attente (30 secondes).  
+  Ce problème ne s’est pas produit sous Linux.  
+- Un `cache:clear` est parfois nécessaire pour éviter des lenteurs importantes lors des requêtes Symfony.  
+- Les images ont volontairement été limitées pour réduire la taille de l’archive du projet.

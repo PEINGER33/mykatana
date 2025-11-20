@@ -20,9 +20,6 @@ final class KatanakakeController extends AbstractController
     #[Route(name: 'app_katanakake_index', methods: ['GET'])]
     public function index(KatanakakeRepository $katanakakeRepository): Response
     {
-        /* return $this->render('katanakake/index.html.twig', [
-            'katanakakes' => $katanakakeRepository->findBy(['publiee' => true]),
-        ]); */
         
         // galeries visibles par tout le monde
         $publicKatanakakes = $katanakakeRepository->findBy(['publiee' => true]);
@@ -43,7 +40,7 @@ final class KatanakakeController extends AbstractController
             // admin : tout
             $katanakakes = $katanakakeRepository->findAll();
         } else {
-            // user normal publiques + privées du membre
+            // user normal : publiques + privées 
             $katanakakes = array_merge($publicKatanakakes, $privateKatanakakes);
         }
         
@@ -134,37 +131,6 @@ final class KatanakakeController extends AbstractController
                     'katanakake' => $katanakake
                 ]);
         }
-    
-    
-    /* #[Route('/katana/{id}', name: 'app_katanakake_katana_show', requirements: ['id' => '\d+'], methods: ['GET'])]
-    public function katanaShow(Katana $katana, Katanakake $katanakake): Response
-    {
-        if (!$katana) {
-            throw $this->createNotFoundException('The katana does not exist');
-        }
-        
-        {
-            return $this->render('katanakake/katana_show.html.twig',
-                [ 'katana' => $katana, 'katanakake' => $katanakake ]);
-        }
-    } */
-    
-    
-    /* #[Route('/katana/{id}', name: 'app_katanakake_katana_show', requirements: ['id' => '\d+'], methods: ['GET'])]
-    public function katanaShow(ManagerRegistry $doctrine, $id): Response
-    {
-        $katanaRepo = $doctrine->getRepository(Katana::class);
-        $katana = $katanaRepo->find($id);
-        
-        if (!$katana) {
-            throw $this->createNotFoundException('The katana does not exist');
-        }
-        
-        
-        {
-            return $this->render('katana/show.html.twig',
-                [ 'katana' => $katana ]);
-        }
-    } */
+
     
 }

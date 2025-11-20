@@ -35,11 +35,7 @@ final class TrousseauController extends AbstractController
             ['trousseaux' => $trousseaux]);
     }
     
-    /**
-     * Show a trousseau
-     *
-     * @param Integer $id (note that the id must be an integer)
-     */
+
     #[Route('/trousseau/{id}', name: 'trousseau_show', requirements: ['id' => '\d+'])]
     public function show(ManagerRegistry $doctrine, $id) : Response
     {

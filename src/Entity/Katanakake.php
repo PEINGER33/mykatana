@@ -28,7 +28,7 @@ class Katanakake
     private Collection $katanas;
 
     #[ORM\ManyToOne(inversedBy: 'katanakakes')]
-    #[ORM\JoinColumn(nullable: true)]   # Attention étant donné que la relation a été faite trop tot elle géne le code donc "True" mais sinon "False"
+    #[ORM\JoinColumn(nullable: false)]   # Attention étant donné que la relation a été faite trop tot elle géne le code donc "True" mais sinon "False"
     private ?Member $createur = null;
 
     public function __construct()
